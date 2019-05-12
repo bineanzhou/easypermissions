@@ -1,6 +1,7 @@
 package pub.devrel.easypermissions;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,11 +10,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.RestrictTo;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class AppSettingsDialogHolderActivity extends AppCompatActivity implements DialogInterface.OnClickListener {
+public class AppSettingsDialogHolderActivity extends Activity implements DialogInterface.OnClickListener {
     private static final int APP_SETTINGS_RC = 7534;
 
     private AlertDialog mDialog;

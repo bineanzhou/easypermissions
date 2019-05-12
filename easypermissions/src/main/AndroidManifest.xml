@@ -8,7 +8,9 @@
             android:name="pub.devrel.easypermissions.AppSettingsDialogHolderActivity"
             android:exported="false"
             android:label=""
-            android:theme="@style/EasyPermissions.Transparent"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            />
+        <!--android:theme="@style/EasyPermissions.Transparent"-->
     </application>
 
 </manifest>

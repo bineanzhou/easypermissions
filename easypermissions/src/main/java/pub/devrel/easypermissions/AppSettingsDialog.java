@@ -1,6 +1,7 @@
 package pub.devrel.easypermissions;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,7 +13,6 @@ import android.support.annotation.RestrictTo;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
 /**
@@ -122,7 +122,7 @@ public class AppSettingsDialog implements Parcelable {
         if (mThemeResId > 0) {
             builder = new AlertDialog.Builder(mContext, mThemeResId);
         } else {
-            builder = new AlertDialog.Builder(mContext);
+            builder = new AlertDialog.Builder(mContext, android.R.style.Theme_DeviceDefault_Light_Dialog);
         }
         return builder
                 .setCancelable(false)
