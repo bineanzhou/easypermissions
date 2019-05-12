@@ -26,6 +26,31 @@ android {
             includeAndroidResources = true
         }
     }
+
+    android.libraryVariants.all { variant ->
+        variant.outputs.all {
+            //只处理生产版本
+            if (buildType.name == 'release') {
+                variant.outputs.each { output ->
+                    def fileName = "${project.name}${variant.flavorName}_V${android.defaultConfig.versionName}_${build_time}.aar"
+                    outputFileName = fileName
+                }
+
+                variant.assemble.doLast {
+                    variant.outputs.each { output ->
+                        def outputFile = output.outputFile
+                        def outputPath = LIB_DIR_PATH
+                        println "生成aar ${LIB_DIR_PATH}/${outputFileName}"
+                        delete "${LIB_DIR_PATH}/${outputFileName}"
+                        copy {
+                            from outputFile
+                            into outputPath
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 junitJacoco {
@@ -44,4 +69,4 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.23.4'
 }
 
-apply from: 'bintray.gradle'
+//apply from: 'bintray.gradle'

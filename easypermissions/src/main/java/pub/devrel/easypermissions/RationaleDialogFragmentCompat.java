@@ -45,11 +45,14 @@ public class RationaleDialogFragmentCompat extends AppCompatDialogFragment {
      * would otherwise occur.
      */
     public void showAllowingStateLoss(FragmentManager manager, String tag) {
-        if (manager.isStateSaved()) {
-            return;
+        try {
+//            if (manager.isStateSaved()) {
+//                return;
+//            }
+            show(manager, tag);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        show(manager, tag);
     }
 
     @Override
@@ -59,7 +62,7 @@ public class RationaleDialogFragmentCompat extends AppCompatDialogFragment {
             if (getParentFragment() instanceof EasyPermissions.PermissionCallbacks) {
                 mPermissionCallbacks = (EasyPermissions.PermissionCallbacks) getParentFragment();
             }
-            if (getParentFragment() instanceof EasyPermissions.RationaleCallbacks){
+            if (getParentFragment() instanceof EasyPermissions.RationaleCallbacks) {
                 mRationaleCallbacks = (EasyPermissions.RationaleCallbacks) getParentFragment();
             }
         }
