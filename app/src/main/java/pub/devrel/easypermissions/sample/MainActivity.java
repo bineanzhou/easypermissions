@@ -31,7 +31,7 @@ import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks,
-                                                               EasyPermissions.RationaleCallbacks{
+        EasyPermissions.RationaleCallbacks {
 
     private static final String TAG = "MainActivity";
     private static final String[] LOCATION_AND_CONTACTS =
@@ -40,10 +40,26 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     private static final int RC_CAMERA_PERM = 123;
     private static final int RC_LOCATION_CONTACTS_PERM = 124;
 
+    private static final int RC_RECORD_AUDIO_PERM = 125;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.button_record_audio).setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Called when a view has been clicked.
+             *
+             * @param v The view that was clicked.
+             */
+            @Override
+            public void onClick(View v) {
+                recordAudioTask();
+
+            }
+        });
 
         // Button click listener that will request one permission.
         findViewById(R.id.button_camera).setOnClickListener(new View.OnClickListener() {
@@ -60,6 +76,11 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 locationAndContactsTask();
             }
         });
+
+    }
+
+    private boolean hasRecordAudioPermission() {
+        return EasyPermissions.hasPermissions(this, Manifest.permission.RECORD_AUDIO);
     }
 
     private boolean hasCameraPermission() {
@@ -76,6 +97,21 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     private boolean hasStoragePermission() {
         return EasyPermissions.hasPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    @AfterPermissionGranted(RC_RECORD_AUDIO_PERM)
+    public void recordAudioTask() {
+        if (hasRecordAudioPermission()) {
+            // Have permission, do the thing!
+            Toast.makeText(this, "TODO: Record Audio things", Toast.LENGTH_LONG).show();
+        } else {
+            // Ask for one permission
+            EasyPermissions.requestPermissions(
+                    this,
+                    "录音",
+                    RC_RECORD_AUDIO_PERM,
+                    Manifest.permission.RECORD_AUDIO);
+        }
     }
 
     @AfterPermissionGranted(RC_CAMERA_PERM)
@@ -146,9 +182,11 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             Toast.makeText(
                     this,
                     getString(R.string.returned_from_app_settings_to_activity,
-                              hasCameraPermission() ? yes : no,
-                              hasLocationAndContactsPermissions() ? yes : no,
-                              hasSmsPermission() ? yes : no),
+                            hasCameraPermission() ? yes : no,
+                            hasLocationAndContactsPermissions() ? yes : no,
+                            hasSmsPermission() ? yes : no,
+                            hasRecordAudioPermission() ? yes : no
+                    ),
                     Toast.LENGTH_LONG)
                     .show();
         }

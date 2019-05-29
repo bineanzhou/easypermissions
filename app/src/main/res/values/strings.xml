@@ -11,6 +11,7 @@
         \n\nCamera: %s
         \nLocation &amp; Contacts: %s
         \nSMS: %s
+        \nRecord Video: %s
     </string>
     <string name="camera">Camera</string>
     <string name="location_and_contacts">Location and Contacts</string>
