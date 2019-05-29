@@ -46,9 +46,9 @@ public class RationaleDialogFragmentCompat extends AppCompatDialogFragment {
      */
     public void showAllowingStateLoss(FragmentManager manager, String tag) {
         try {
-//            if (manager.isStateSaved()) {
-//                return;
-//            }
+            if (manager.isStateSaved()) {
+                return;
+            }
             show(manager, tag);
         } catch (Exception e) {
             e.printStackTrace();
